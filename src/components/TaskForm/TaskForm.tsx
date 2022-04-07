@@ -2,14 +2,19 @@ import { TaskFormValues } from 'types';
 import Link from 'next/link';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/BorderColor';
 import * as yup from 'yup';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { getAllowedStatuses } from 'utils/task';
 
 const validationSchema = yup.object().shape({
   title: yup.string().min(3).required(),
@@ -39,6 +44,8 @@ const TaskForm = ({ edit, defaultValues, onSubmit }: Props) => {
       reset();
     }
   };
+
+  const { status: currentStatus } = defaultValues;
 
   return (
     <Container sx={{ py: 4 }} maxWidth="xl">
@@ -81,6 +88,31 @@ const TaskForm = ({ edit, defaultValues, onSubmit }: Props) => {
             />
           )}
         />
+
+        {edit && (
+          <Controller
+            name="status"
+            control={control}
+            render={({ field, fieldState: { error } }) => (
+              <FormControl
+                variant="filled"
+                fullWidth
+                sx={{ my: 1 }}
+                error={Boolean(error)}
+              >
+                <Select {...field}>
+                  <MenuItem value={currentStatus}>{currentStatus}</MenuItem>
+                  {getAllowedStatuses(currentStatus).map((status) => (
+                    <MenuItem key={status} value={status}>
+                      {status}
+                    </MenuItem>
+                  ))}
+                </Select>
+                {error && <FormHelperText>{error.message}</FormHelperText>}
+              </FormControl>
+            )}
+          />
+        )}
 
         <Stack direction="row" spacing={2} mt={1}>
           <Button

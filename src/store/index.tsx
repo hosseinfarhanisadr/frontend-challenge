@@ -4,7 +4,7 @@ import { Task } from '../types';
 import { storeTasks, retrieveTasks } from './storage';
 
 type Action = {
-  type: 'addTask' | 'setTasks';
+  type: 'addTask' | 'editTask' | 'setTasks';
   [extraProps: string]: any;
 };
 type Dispatch = (action: Action) => void;
@@ -31,6 +31,15 @@ function taskReducer(state: State, action: Action) {
         },
         ...state.tasks,
       ];
+
+      storeTasks(newTasks);
+
+      return { tasks: newTasks };
+    }
+    case 'editTask': {
+      const newTasks = state.tasks.map((task) =>
+        task.id === action.payload.id ? action.payload : task
+      );
 
       storeTasks(newTasks);
 
