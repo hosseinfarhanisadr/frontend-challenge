@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { compareTasks } from 'utils/task';
 import { v4 as uuidv4 } from 'uuid';
 import { Task } from '../types';
 import { storeTasks, retrieveTasks } from './storage';
@@ -37,9 +38,17 @@ function taskReducer(state: State, action: Action) {
       return { tasks: newTasks };
     }
     case 'editTask': {
-      const newTasks = state.tasks.map((task) =>
-        task.id === action.payload.id ? action.payload : task
-      );
+      const newTasks = state.tasks.map((task) => {
+        if (task.id === action.payload.id) {
+          const changes = compareTasks(task, action.payload);
+
+          return {
+            ...action.payload,
+            history: [...changes, ...task.history],
+          };
+        }
+        return task;
+      });
 
       storeTasks(newTasks);
 

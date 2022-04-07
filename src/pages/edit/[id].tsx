@@ -6,6 +6,7 @@ import { TaskFormValues } from 'types';
 import Layout from 'components/Layout';
 import TaskForm from 'components/TaskForm';
 import Alert from '@mui/material/Alert';
+import TaskHistory from 'components/TaskHistory';
 
 const Edit: NextPage = () => {
   const router = useRouter();
@@ -36,6 +37,7 @@ const Edit: NextPage = () => {
       {task ? (
         <>
           <TaskForm edit onSubmit={handleEditTask} defaultValues={task} />
+          {task.history?.length > 0 && <TaskHistory history={task.history} />}
         </>
       ) : (
         <Alert severity="error">Not Found!</Alert>
