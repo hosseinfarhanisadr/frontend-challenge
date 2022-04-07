@@ -4,6 +4,7 @@ import { TaskFormValues } from 'types';
 import Layout from 'components/Layout';
 import TaskForm from 'components/TaskForm';
 import { useDispatch } from 'store';
+import Tasks from 'components/Tasks';
 import Box from '@mui/material/Box';
 
 const Home: NextPage = () => {
@@ -33,6 +34,7 @@ const Home: NextPage = () => {
           onSubmit={handleAddTask}
           defaultValues={{ title: '', description: '' }}
         />
+        <Tasks />
       </Box>
     </Layout>
   );
