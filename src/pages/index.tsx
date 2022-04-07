@@ -1,9 +1,21 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import { TaskFormValues } from 'types';
 import Layout from 'components/Layout';
+import TaskForm from 'components/TaskForm';
+import { useDispatch } from 'store';
 import Box from '@mui/material/Box';
 
 const Home: NextPage = () => {
+  const dispatch = useDispatch();
+
+  const handleAddTask = (values: TaskFormValues) => {
+    dispatch({
+      type: 'addTask',
+      payload: values,
+    });
+  };
+
   return (
     <Layout title="Home">
       <Head>
@@ -17,7 +29,10 @@ const Home: NextPage = () => {
         flexGrow={1}
         position="relative"
       >
-        Home
+        <TaskForm
+          onSubmit={handleAddTask}
+          defaultValues={{ title: '', description: '' }}
+        />
       </Box>
     </Layout>
   );
