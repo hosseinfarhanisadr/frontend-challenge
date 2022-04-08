@@ -36,10 +36,15 @@ const Tasks = () => {
           borderRadius: '30px 30px 0 0',
           backgroundColor: 'primary.light',
           alignItems: 'flex-start',
-          overflow: 'hidden',
+          height: 0,
         }}
       >
-        <Box display="flex" flexWrap="wrap">
+        <Box
+          display="flex"
+          flexWrap="wrap"
+          flexGrow={1}
+          sx={{ height: '100%', overflowY: 'auto' }}
+        >
           {tasks.map((task: Task) => (
             <Card
               key={task.id}
