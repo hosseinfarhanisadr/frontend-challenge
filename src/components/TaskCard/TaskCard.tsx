@@ -13,6 +13,7 @@ type Props = { task: Task };
 const TaskCard = ({ task }: Props) => {
   return (
     <Card
+      raised
       sx={{
         m: 2,
         width: 300,
@@ -20,6 +21,7 @@ const TaskCard = ({ task }: Props) => {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
+        borderRadius: 2,
       }}
     >
       <CardContent>
