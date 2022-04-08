@@ -33,16 +33,29 @@ const Tasks = () => {
           height: 0,
         }}
       >
-        <Box
-          display="flex"
-          flexWrap="wrap"
-          flexGrow={1}
-          sx={{ height: '100%', overflowY: 'auto' }}
-        >
-          {tasks.map((task: Task) => (
-            <TaskCard key={task.id} task={task} />
-          ))}
-        </Box>
+        {tasks.length > 0 ? (
+          <Box
+            display="flex"
+            flexWrap="wrap"
+            flexGrow={1}
+            sx={{ height: '100%', overflowY: 'auto' }}
+          >
+            {tasks.map((task: Task) => (
+              <TaskCard key={task.id} task={task} />
+            ))}
+          </Box>
+        ) : (
+          <Box
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
+            alignItems="center"
+            height="100%"
+          >
+            <Typography variant="h6">You have nothing to do.</Typography>
+            <Typography variant="h6">Go get some sleep.</Typography>
+          </Box>
+        )}
       </Box>
     </>
   );
