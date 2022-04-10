@@ -16,7 +16,11 @@ function getAllowedStatuses(currentStatus?: TaskStatus): TaskStatus[] {
   );
 }
 
-type ComparisonTask = { title: string; description: string; status: string };
+type ComparisonTask = {
+  title: string;
+  description: string;
+  status: TaskStatus;
+};
 
 function compareTasks(oldTask: ComparisonTask, newTask: ComparisonTask) {
   let diffs: History[] = [];

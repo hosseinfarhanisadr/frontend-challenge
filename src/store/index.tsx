@@ -63,7 +63,7 @@ function taskReducer(state: State, action: Action) {
   }
 }
 
-export function TaskProvider({ children }: ProviderProps) {
+function TaskProvider({ children }: ProviderProps) {
   const [state, dispatch] = React.useReducer(taskReducer, initialState);
 
   React.useEffect(() => {
@@ -76,7 +76,7 @@ export function TaskProvider({ children }: ProviderProps) {
   return <TaskContext.Provider value={value}>{children}</TaskContext.Provider>;
 }
 
-export function useTaskContext() {
+function useTaskContext() {
   const context = React.useContext(TaskContext);
 
   if (!context) {
@@ -86,12 +86,22 @@ export function useTaskContext() {
   return context;
 }
 
-export function useSelector(selector: (state: State) => any) {
+function useSelector(selector: (state: State) => any) {
   const { state } = useTaskContext();
   return selector(state);
 }
 
-export function useDispatch(): Dispatch {
+function useDispatch(): Dispatch {
   const { dispatch } = useTaskContext();
   return dispatch;
 }
+
+export type { State, ProviderProps };
+export {
+  TaskContext,
+  useSelector,
+  useDispatch,
+  taskReducer,
+  TaskProvider,
+  useTaskContext,
+};

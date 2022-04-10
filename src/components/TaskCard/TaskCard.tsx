@@ -51,7 +51,7 @@ const TaskCard = ({ task }: Props) => {
         />
 
         <Link href={`/edit/${task.id}`} passHref>
-          <IconButton component="a" aria-label="delete" size="large">
+          <IconButton component="a" aria-label="edit" size="large">
             <EditIcon fontSize="inherit" />
           </IconButton>
         </Link>

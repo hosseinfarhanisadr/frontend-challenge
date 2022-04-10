@@ -39,6 +39,7 @@ const Tasks = () => {
             flexWrap="wrap"
             flexGrow={1}
             sx={{ height: '100%', overflowY: 'auto' }}
+            data-testid="task-list"
           >
             {tasks.map((task: Task) => (
               <TaskCard key={task.id} task={task} />
